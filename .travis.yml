@@ -6,3 +6,16 @@ before_install:
 
 script:
   - docker run senvad/docker-web npm run test -- --coverage
+
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "docker-web"
+    env: "DockerWeb-env"
+    bucket_name: "elasticbeanstalk-us-east-2-516118648966"
+    bucket_path: "docker-web"
+    on:
+      branch: master
+    access_key_id: $aws_access_key
+    secret_access_key:
+      secure: "$aws_secret"
